@@ -17,7 +17,7 @@ class PID {
    * Initialize PID.
    * @param (Kp_, Ki_, Kd_) The initial PID coefficients
    */
-  void Init(double Kp_, double Ki_, double Kd_,bool run_twiddle);
+  void Init(double Kp_, double Ki_, double Kd_);
 
   /**
    * Update the PID error variables given cross track error.
@@ -31,14 +31,7 @@ class PID {
    */
   double TotalError();
 
-/**
- * 
- * @param total_error The Total error 
- * @param hyperparameter The Hyper parameter 
-*/
-  void Twiddle(double total_error,double hyperparameter);
-
- public:
+ private:
   /**
    * PID Errors
    */
@@ -53,12 +46,14 @@ class PID {
   double Ki;
   double Kd;
 
-    /*
-  * Twiddle
-  */
-  float tolerance;
-  float delta_p;
+   /**
+   * Error counters
+  **/
+  long counter;
+  double errorSum;
+  double minError;
+  double maxError;
+  double prev_cte;
 
 };
-
 #endif  // PID_H
